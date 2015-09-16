@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+	<!-- 配置struct开发模式 -->
+    <constant name="struts.devMode" value="true" />
+    <!-- 配置struct后缀名 -->
+    <constant name="struts.action.extension" value="do" />
+    <!-- 配置struct开发模式 -->
+    <constant name="struts.ui.theme" value="simple" />
+
+    <package name="default" namespace="/" extends="struts-default">
+    	<interceptors>
+    		 <!-- 声明拦截器 --> 
+    		<interceptor name="checkLogin" class="com.hand.tool.CheckInterceptor"></interceptor>
+    		 <!-- 重定义默认的拦截器栈  -->
+    		<interceptor-stack name="defaultStack">
+    			 <!-- 先调用自定义拦截器，后调用默认的拦截器栈中的拦截器 -->
+    			<interceptor-ref name="checkLogin"></interceptor-ref>
+    			<interceptor-ref name="defaultStack"></interceptor-ref>
+    		</interceptor-stack>
+    	</interceptors>
+    	
+        <!-- 首页  -->
+    	<action name="home_*" method="{1}" class="homeAction">
+    		<result name="{1}">/WEB-INF/jsp/homeAction/{1}.jsp</result>
+    	</action>
+        
+        <action name="customer_*" class="customerAction" method="{1}">
+        	<result name="list">/WEB-INF/jsp/customerList.jsp</result>
+        	<result name="toIndex" type="redirectAction">home_index</result>
+    		<result name="loginUI">/login.jsp</result>
+    		<result name="toList" type="redirectAction">customer_list</result>
+    		<result name="saveUI">/WEB-INF/jsp/CustomerEdit.jsp</result>
+    		<result name="logout" type="redirect">/login.jsp</result>
+        </action>
+    </package>
+</struts>

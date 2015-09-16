@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+ "-//Hibernate/Hibernate Mapping DTD//EN"
+ "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping package="com.hand.po">
+   <class name="Address" table="ADDRESS">
+      <id name="address_id" type="int" column="address_id">
+         <generator class="native"/>
+      </id>
+      
+      <property name="address" column="address"/>
+      <property name="address2" column="address2"/>
+      <property name="district" column="district"/>
+      
+      <!-- city属性，本类与City的多对一 
+      <many-to-one name="city" class="City" column="city_id"></many-to-one>
+      -->
+      
+      <property name="city_id" column="city_id"/>
+      
+      <property name="postal_code" column="postal_code"/>
+      <property name="phone" column="phone"/>
+      <property name="last_update" column="last_update"/>
+   </class>
+   
+</hibernate-mapping>
